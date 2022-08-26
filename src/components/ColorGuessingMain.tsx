@@ -1,5 +1,14 @@
 import { Box } from "@chakra-ui/react";
+import { ColorSetting } from "./ColorSetting";
+import { ColorGuessingTitle } from "./ColorGuessingTitle";
+import { ColorGuessingBody } from "./ColorGuessingBody";
 
 export const ColorGuessingMain = () => {
-	return <Box>Color Guessing Main</Box>;
+	return (
+		<Box>
+			<ColorGuessingTitle />
+			<ColorSetting />
+			<ColorGuessingBody />
+		</Box>
+	);
 };
