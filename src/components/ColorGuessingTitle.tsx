@@ -1,6 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
 
-export const ColorGuessingTitle = () => {
+type ColorGuessingTitleProps = {
+	rgb: string;
+};
+
+export const ColorGuessingTitle = ({ rgb }: ColorGuessingTitleProps) => {
 	return (
 		<Box
 			p="30"
@@ -13,7 +17,7 @@ export const ColorGuessingTitle = () => {
 			textTransform="uppercase"
 		>
 			<Text>THE GREAT RGB COLOR</Text>
-			<Text fontSize="6xl">RGB(116,11,255)</Text>
+			<Text fontSize="6xl">{rgb}</Text>
 			<Text>GUESSING GAME</Text>
 		</Box>
 	);

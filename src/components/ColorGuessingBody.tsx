@@ -2,15 +2,17 @@ import { Box, Flex } from "@chakra-ui/react";
 import { ColorBox } from "./ColorBox";
 import { RGBTYPE } from "./ColorGuessingMain";
 
-const boxesHard = ["box1", "box2", "box3", "box4", "box5", "box6"];
-
 type ColorGuessingBodyProps = {
-	hardRGBs: RGBTYPE[];
+	rgbsList: RGBTYPE[];
+	onSelectColor: (rgbColor: string) => void;
 };
 
-export const ColorGuessingBody = ({ hardRGBs }: ColorGuessingBodyProps) => {
+export const ColorGuessingBody = ({
+	rgbsList,
+	onSelectColor,
+}: ColorGuessingBodyProps) => {
 	return (
-		<Box mt="50px" h="100%" maxW="100%" bgColor="#f5ccff" textAlign="center">
+		<Box mt="50px" h="100%" maxW="100%" textAlign="center">
 			<Flex
 				mx="auto"
 				maxW="500px"
@@ -18,8 +20,14 @@ export const ColorGuessingBody = ({ hardRGBs }: ColorGuessingBodyProps) => {
 				flexWrap="wrap"
 				justifyContent="center"
 			>
-				{hardRGBs.map((box) => {
-					return <ColorBox key={box.id} rgbColor={box?.rgb} />;
+				{rgbsList?.map((box) => {
+					return (
+						<ColorBox
+							key={box.id}
+							rgbColor={box?.rgb}
+							onSelectColor={onSelectColor}
+						/>
+					);
 				})}
 			</Flex>
 		</Box>

@@ -1,6 +1,16 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 
-export const ColorSetting = () => {
+type ColorSettingProps = {
+	onClickNewColors: () => void;
+	onClickEasyMode?: () => void;
+	onClickHardMode?: () => void;
+};
+
+export const ColorSetting = ({
+	onClickNewColors,
+	onClickEasyMode,
+	onClickHardMode,
+}: ColorSettingProps) => {
 	const theme = {
 		p: "3",
 		borderRadius: "none",
@@ -21,10 +31,16 @@ export const ColorSetting = () => {
 			borderBottomWidth="1px"
 		>
 			<Flex justifyContent="space-evenly">
-				<Button __css={theme}>NEW COLORS</Button>
+				<Button __css={theme} onClick={onClickNewColors}>
+					NEW COLORS
+				</Button>
 				<Flex>
-					<Button __css={theme}>EASY</Button>
-					<Button __css={theme}>HARD</Button>
+					<Button __css={theme} onClick={onClickEasyMode}>
+						EASY
+					</Button>
+					<Button __css={theme} onClick={onClickHardMode}>
+						HARD
+					</Button>
 				</Flex>
 			</Flex>
 		</Box>
