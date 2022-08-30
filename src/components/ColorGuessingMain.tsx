@@ -7,21 +7,22 @@ import { useEffect, useState } from "react";
 export type RGBTYPE = {
 	id: string;
 	rgb: string;
+	guess: boolean | null;
 };
 
 const defaultHardRGBs: RGBTYPE[] = [
-	{ id: "hardBox1", rgb: "" },
-	{ id: "hardBox2", rgb: "" },
-	{ id: "hardBox3", rgb: "" },
-	{ id: "hardBox4", rgb: "" },
-	{ id: "hardBox5", rgb: "" },
-	{ id: "hardBox6", rgb: "" },
+	{ id: "hardBox1", rgb: "", guess: null },
+	{ id: "hardBox2", rgb: "", guess: null },
+	{ id: "hardBox3", rgb: "", guess: null },
+	{ id: "hardBox4", rgb: "", guess: null },
+	{ id: "hardBox5", rgb: "", guess: null },
+	{ id: "hardBox6", rgb: "", guess: null },
 ];
 
 const defaultEasyRGBs: RGBTYPE[] = [
-	{ id: "easyBox1", rgb: "" },
-	{ id: "easyBox2", rgb: "" },
-	{ id: "easyBox3", rgb: "" },
+	{ id: "easyBox1", rgb: "", guess: null },
+	{ id: "easyBox2", rgb: "", guess: null },
+	{ id: "easyBox3", rgb: "", guess: null },
 ];
 
 const generateNumber = () => {
@@ -45,6 +46,7 @@ const generateRandomRGBsList = (rgbsList: RGBTYPE[]) => {
 		return {
 			id: rgb.id,
 			rgb: randomRGB,
+			guess: null,
 		};
 	});
 	return newRGBsList;
@@ -60,7 +62,6 @@ export const ColorGuessingMain = () => {
 	const [hardRGBs, setHardRGBs] = useState<RGBTYPE[]>(defaultHardRGBs);
 	const [easyRGBs, setEasyRGBs] = useState<RGBTYPE[]>(defaultEasyRGBs);
 	const [correctRGB, setCorrectRGB] = useState<string>("");
-	const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 	const rgbsList = isHardMode ? hardRGBs : easyRGBs;
 
 	// events
@@ -70,8 +71,6 @@ export const ColorGuessingMain = () => {
 
 		const newCorrectRGB = generateCorrectRGB(newHardRGBs);
 		setCorrectRGB(newCorrectRGB.rgb);
-
-		setIsCorrect(null);
 	};
 
 	const createEasyRGBs = () => {
@@ -80,8 +79,6 @@ export const ColorGuessingMain = () => {
 
 		const newCorrectRGB = generateCorrectRGB(newEasyRGBs);
 		setCorrectRGB(newCorrectRGB.rgb);
-
-		setIsCorrect(null);
 	};
 
 	const handleClickNewColors = () => {
@@ -102,11 +99,37 @@ export const ColorGuessingMain = () => {
 		createHardRGBs();
 	};
 
-	const handleSelectColor = (rgbColor: string) => {
-		if (rgbColor === correctRGB) {
-			setIsCorrect(true);
+	const handleSelectColor = (boxId: string, rgbColor: string) => {
+		if (isHardMode) {
+			if (rgbColor === correctRGB) {
+				const newRGBs = hardRGBs.map((rgbValues) => {
+					return {
+						...rgbValues,
+						rgb: rgbColor,
+						guess: true,
+					};
+				});
+				setHardRGBs(newRGBs);
+			} else {
+				const indexValue = hardRGBs.findIndex((x) => x.id === boxId);
+				hardRGBs[indexValue] = { id: boxId, rgb: rgbColor, guess: false };
+				setHardRGBs([...hardRGBs]);
+			}
 		} else {
-			setIsCorrect(false);
+			if (rgbColor === correctRGB) {
+				const newRGBs = easyRGBs.map((rgbValues) => {
+					return {
+						...rgbValues,
+						rgb: rgbColor,
+						guess: true,
+					};
+				});
+				setEasyRGBs(newRGBs);
+			} else {
+				const indexValue = easyRGBs.findIndex((x) => x.id === boxId);
+				easyRGBs[indexValue] = { id: boxId, rgb: rgbColor, guess: false };
+				setEasyRGBs([...easyRGBs]);
+			}
 		}
 	};
 

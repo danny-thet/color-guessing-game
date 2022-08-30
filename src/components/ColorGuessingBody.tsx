@@ -4,7 +4,7 @@ import { RGBTYPE } from "./ColorGuessingMain";
 
 type ColorGuessingBodyProps = {
 	rgbsList: RGBTYPE[];
-	onSelectColor: (rgbColor: string) => void;
+	onSelectColor: (boxId: string, rgbColor: string) => void;
 };
 
 export const ColorGuessingBody = ({
@@ -20,11 +20,11 @@ export const ColorGuessingBody = ({
 				flexWrap="wrap"
 				justifyContent="center"
 			>
-				{rgbsList?.map((box) => {
+				{rgbsList?.map((rgbValue) => {
 					return (
 						<ColorBox
-							key={box.id}
-							rgbColor={box?.rgb}
+							key={rgbValue.id}
+							rgbValues={rgbValue}
 							onSelectColor={onSelectColor}
 						/>
 					);
