@@ -4,13 +4,15 @@ import { RGBsContext } from "../context/RGBsContext";
 
 export const ColorGuessingTitle = () => {
 	const rgb = useContext(RGBsContext);
+	const isCorrectGuess = rgb.rgbsList.some((rgb) => rgb.guess);
+	const bgColor = isCorrectGuess ? rgb.correctRGB : "#cc00ff";
 
 	return (
 		<Box
 			p="30"
 			textAlign="center"
 			color="white"
-			bgColor="#cc00ff"
+			bgColor={bgColor}
 			fontSize="large"
 			fontWeight="bold"
 			fontFamily="monospace"

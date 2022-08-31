@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { RGBTYPE } from "./ColorGuessingMain";
+import { RGBTYPE } from "../types";
 
 type ColorBoxProps = {
 	rgbValues: RGBTYPE;

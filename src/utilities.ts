@@ -15,15 +15,18 @@ export const generateRGBNumber = () => {
 	return rgb;
 };
 
-export const generateRandomRGBsList = (rgbsList: RGBTYPE[]) => {
-	const newRGBsList = rgbsList.map((rgbColor) => {
+export const generateRandomRGBsList = (count: number) => {
+	const colorsCountArray = Array.from(Array(count).keys());
+	const rgbsList: RGBTYPE[] = colorsCountArray.map((count) => {
 		const randomRGB = generateRGBNumber();
 		return {
-			...rgbColor,
+			id: count.toString(),
 			rgb: randomRGB,
+			guess: null,
 		};
 	});
-	return newRGBsList;
+
+	return rgbsList;
 };
 
 export const generateCorrectRGB = (rgbsList: RGBTYPE[]) => {

@@ -5,94 +5,62 @@ import { ColorGuessingBody } from "./ColorGuessingBody";
 import { useEffect, useState } from "react";
 import React from "react";
 import { RGBTYPE } from "../types";
-import {
-	defaultEasyRGBs,
-	defaultHardRGBs,
-	RGBsContext,
-} from "../context/RGBsContext";
+import { RGBsContext } from "../context/RGBsContext";
 import { generateCorrectRGB, generateRandomRGBsList } from "../utilities";
 
 export const ColorGuessingMain = () => {
 	// states
 	const [isHardMode, setIsHardMode] = useState<boolean>(true);
-	const [hardRGBs, setHardRGBs] = useState<RGBTYPE[]>(defaultHardRGBs);
-	const [easyRGBs, setEasyRGBs] = useState<RGBTYPE[]>(defaultEasyRGBs);
 	const [correctRGB, setCorrectRGB] = useState<string>("");
-	const rgbsList = isHardMode ? hardRGBs : easyRGBs;
+	const [rgbsList, setRGBsList] = useState<RGBTYPE[]>([]);
 
 	// events
-	const createHardRGBs = () => {
-		const newHardRGBs = generateRandomRGBsList(hardRGBs);
-		setHardRGBs(newHardRGBs);
+	const createRGBsList = (count: number) => {
+		const newRGBs = generateRandomRGBsList(count);
+		setRGBsList(newRGBs);
 
-		const newCorrectRGB = generateCorrectRGB(newHardRGBs);
+		const newCorrectRGB = generateCorrectRGB(newRGBs);
 		setCorrectRGB(newCorrectRGB.rgb);
 	};
 
-	const createEasyRGBs = () => {
-		const newEasyRGBs = generateRandomRGBsList(easyRGBs);
-		setEasyRGBs(newEasyRGBs);
-
-		const newCorrectRGB = generateCorrectRGB(newEasyRGBs);
-		setCorrectRGB(newCorrectRGB.rgb);
-	};
-
-	const handleClickNewColors = () => {
+	const handleCreateNewColors = () => {
 		if (isHardMode) {
-			createHardRGBs();
+			createRGBsList(6);
 		} else {
-			createEasyRGBs();
+			createRGBsList(3);
 		}
 	};
 
 	const handleClickEasyMode = () => {
 		setIsHardMode(false);
-		createEasyRGBs();
+		createRGBsList(3);
 	};
 
 	const handleClickHardMode = () => {
 		setIsHardMode(true);
-		createHardRGBs();
+		createRGBsList(6);
 	};
 
 	const handleSelectColor = (boxId: string, rgbColor: string) => {
-		const handleCorrectSelect = (rgbs: RGBTYPE[]) => {
-			return rgbs.map((rgbValues) => {
+		if (rgbColor === correctRGB) {
+			const newRGBs = rgbsList.map((rgbValues) => {
 				return {
 					...rgbValues,
 					rgb: rgbColor,
 					guess: true,
 				};
 			});
-		};
-
-		const handleInCorrectSelect = (rgbs: RGBTYPE[]) => {
-			const indexValue = rgbs.findIndex((rgb) => rgb.id === boxId);
-			rgbs[indexValue] = { id: boxId, rgb: rgbColor, guess: false };
-		};
-
-		if (isHardMode) {
-			if (rgbColor === correctRGB) {
-				const newRGBs = handleCorrectSelect(hardRGBs);
-				setHardRGBs(newRGBs);
-			} else {
-				handleInCorrectSelect(hardRGBs);
-				setHardRGBs([...hardRGBs]);
-			}
+			setRGBsList(newRGBs);
 		} else {
-			if (rgbColor === correctRGB) {
-				const newRGBs = handleCorrectSelect(easyRGBs);
-				setEasyRGBs(newRGBs);
-			} else {
-				handleInCorrectSelect(easyRGBs);
-				setEasyRGBs([...easyRGBs]);
-			}
+			const indexValue = rgbsList.findIndex((rgb) => rgb.id === boxId);
+			rgbsList[indexValue] = { id: boxId, rgb: rgbColor, guess: false };
+			setRGBsList([...rgbsList]);
 		}
 	};
 
 	// effect
 	useEffect(() => {
-		handleClickNewColors();
+		handleCreateNewColors();
 	}, []);
 
 	return (
@@ -100,7 +68,7 @@ export const ColorGuessingMain = () => {
 			value={{
 				correctRGB,
 				rgbsList,
-				handleClickNewColors,
+				handleClickNewColors: handleCreateNewColors,
 				handleClickEasyMode,
 				handleClickHardMode,
 				handleSelectColor,
