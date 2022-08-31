@@ -1,10 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+import { RGBsContext } from "../context/RGBsContext";
 
-type ColorGuessingTitleProps = {
-	rgb: string;
-};
+export const ColorGuessingTitle = () => {
+	const rgb = useContext(RGBsContext);
 
-export const ColorGuessingTitle = ({ rgb }: ColorGuessingTitleProps) => {
 	return (
 		<Box
 			p="30"
@@ -17,7 +17,7 @@ export const ColorGuessingTitle = ({ rgb }: ColorGuessingTitleProps) => {
 			textTransform="uppercase"
 		>
 			<Text>THE GREAT RGB COLOR</Text>
-			<Text fontSize="6xl">{rgb}</Text>
+			<Text fontSize="6xl">{rgb.correctRGB}</Text>
 			<Text>GUESSING GAME</Text>
 		</Box>
 	);

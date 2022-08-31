@@ -1,16 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { useContext } from "react";
+import { RGBsContext } from "../context/RGBsContext";
 import { ColorBox } from "./ColorBox";
-import { RGBTYPE } from "./ColorGuessingMain";
 
-type ColorGuessingBodyProps = {
-	rgbsList: RGBTYPE[];
-	onSelectColor: (boxId: string, rgbColor: string) => void;
-};
-
-export const ColorGuessingBody = ({
-	rgbsList,
-	onSelectColor,
-}: ColorGuessingBodyProps) => {
+export const ColorGuessingBody = () => {
+	const rgb = useContext(RGBsContext);
 	return (
 		<Box mt="50px" h="100%" maxW="100%" textAlign="center">
 			<Flex
@@ -20,12 +14,12 @@ export const ColorGuessingBody = ({
 				flexWrap="wrap"
 				justifyContent="center"
 			>
-				{rgbsList?.map((rgbValue) => {
+				{rgb.rgbsList?.map((rgbValue) => {
 					return (
 						<ColorBox
 							key={rgbValue.id}
 							rgbValues={rgbValue}
-							onSelectColor={onSelectColor}
+							onSelectColor={rgb.handleSelectColor}
 						/>
 					);
 				})}

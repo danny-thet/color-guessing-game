@@ -1,16 +1,8 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
+import { useContext } from "react";
+import { RGBsContext } from "../context/RGBsContext";
 
-type ColorSettingProps = {
-	onClickNewColors: () => void;
-	onClickEasyMode?: () => void;
-	onClickHardMode?: () => void;
-};
-
-export const ColorSetting = ({
-	onClickNewColors,
-	onClickEasyMode,
-	onClickHardMode,
-}: ColorSettingProps) => {
+export const ColorSetting = () => {
 	const theme = {
 		p: "3",
 		borderRadius: "none",
@@ -23,6 +15,8 @@ export const ColorSetting = ({
 		transition: "0.5s",
 	};
 
+	const events = useContext(RGBsContext);
+
 	return (
 		<Box
 			textAlign="center"
@@ -31,14 +25,14 @@ export const ColorSetting = ({
 			borderBottomWidth="1px"
 		>
 			<Flex justifyContent="space-evenly">
-				<Button __css={theme} onClick={onClickNewColors}>
+				<Button __css={theme} onClick={events.handleClickNewColors}>
 					NEW COLORS
 				</Button>
 				<Flex>
-					<Button __css={theme} onClick={onClickEasyMode}>
+					<Button __css={theme} onClick={events.handleClickEasyMode}>
 						EASY
 					</Button>
-					<Button __css={theme} onClick={onClickHardMode}>
+					<Button __css={theme} onClick={events.handleClickHardMode}>
 						HARD
 					</Button>
 				</Flex>
