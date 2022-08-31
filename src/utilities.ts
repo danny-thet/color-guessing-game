@@ -1,9 +1,7 @@
 import { RGBTYPE } from "./types";
 
 const generateNumber = () => {
-	const randomNumber = Math.floor(Math.random() * 225 + 1);
-
-	return randomNumber;
+	return Math.floor(Math.random() * 225 + 1);
 };
 
 export const generateRGBNumber = () => {
