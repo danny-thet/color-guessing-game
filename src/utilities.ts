@@ -16,12 +16,11 @@ export const generateRGBNumber = () => {
 };
 
 export const generateRandomRGBsList = (rgbsList: RGBTYPE[]) => {
-	const newRGBsList = rgbsList.map((rgb) => {
+	const newRGBsList = rgbsList.map((rgbColor) => {
 		const randomRGB = generateRGBNumber();
 		return {
-			id: rgb.id,
+			...rgbColor,
 			rgb: randomRGB,
-			guess: null,
 		};
 	});
 	return newRGBsList;

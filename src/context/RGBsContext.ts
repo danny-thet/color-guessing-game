@@ -1,20 +1,24 @@
 import React from "react";
 import { RGBTYPE } from "../types";
 
-export const defaultHardRGBs: RGBTYPE[] = [
-	{ id: "hardBox1", rgb: "", guess: null },
-	{ id: "hardBox2", rgb: "", guess: null },
-	{ id: "hardBox3", rgb: "", guess: null },
-	{ id: "hardBox4", rgb: "", guess: null },
-	{ id: "hardBox5", rgb: "", guess: null },
-	{ id: "hardBox6", rgb: "", guess: null },
-];
+const hardCount = 6;
+const easyCount = 3;
 
-export const defaultEasyRGBs: RGBTYPE[] = [
-	{ id: "easyBox1", rgb: "", guess: null },
-	{ id: "easyBox2", rgb: "", guess: null },
-	{ id: "easyBox3", rgb: "", guess: null },
-];
+const generateDefaultRGBs = (count: number) => {
+	const colorsArray = Array.from(Array(count).keys());
+	const rgbsArray: RGBTYPE[] = colorsArray.map((x) => {
+		return {
+			id: x.toString(),
+			rgb: "",
+			guess: null,
+		};
+	});
+	return rgbsArray;
+};
+
+export const defaultHardRGBs: RGBTYPE[] = generateDefaultRGBs(hardCount);
+
+export const defaultEasyRGBs: RGBTYPE[] = generateDefaultRGBs(easyCount);
 
 export const RGBsContext = React.createContext({
 	correctRGB: "",
