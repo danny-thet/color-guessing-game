@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
 	return (
 		<main className={styles.main}>
-			<ColorGuessingMain />;
+			<ColorGuessingMain />
 		</main>
 	);
 };
