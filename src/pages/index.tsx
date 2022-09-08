@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { ColorGuessingMain } from "../src/components/ColorGuessingMain";
+import { ColorGuessingMain } from "../components/ColorGuessingMain";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
