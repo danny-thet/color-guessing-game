@@ -16,6 +16,10 @@ export const ColorSetting = () => {
 	};
 
 	const events = useContext(RGBsContext);
+	console.log(
+		"🚀 ~ file: ColorSetting.tsx:19 ~ ColorSetting ~ events:",
+		events
+	);
 
 	return (
 		<Box
